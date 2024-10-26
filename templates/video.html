@@ -50,11 +50,11 @@
       gap: 20px;
     }
     #player-container {
-      width: 60%;
+      width: 55%; /* 動画エリアの幅を狭くする */
       position: relative; 
     }
     .recommended-videos {
-      width: 35%;
+      width: 40%; /* 関連動画エリアの幅を広げる */
     }
     .thumbnail {
       width: 100%;
@@ -62,24 +62,6 @@
     }
     .video-info {
       margin-top: 20px;
-    }
-    #progress-bar {
-      width: 100%;
-      height: 5px;
-      background-color: #ddd;
-      border-radius: 5px;
-      position: absolute; 
-      bottom: 10px; 
-      left: 0; 
-      z-index: 1; 
-      cursor: pointer; 
-    }
-    #progress-bar-fill {
-      height: 100%;
-      background-color: #808080;
-      border-radius: 5px;
-      width: 0%;
-      transition: width 0.3s ease;
     }
    #contents {
         display: flex;
@@ -197,12 +179,12 @@
     }
 
     #player-container {
-      width: 60%;
+      width: 55%; /* 動画エリアの幅を狭くする */
       position: relative; 
     }
 
     .recommended-videos {
-      width: 35%;
+      width: 40%; /* 関連動画エリアの幅を広げる */
     }
 
     .video-details {
@@ -218,11 +200,27 @@
     .channel-profile {
       display: flex;
       align-items: center; /* 画像とチャンネル名を縦に揃える */
+      margin-bottom: 10px; /* チャンネル情報の下の余白 */
+      color: #606060; /* チャンネル名の色 */
     }
 
-    .channel-profile img {
-      margin-right: 10px;
-      border-radius: 50%; /* 丸いアイコンにする */
+    .channel-profile img { /* チャンネルアイコンのスタイル */
+        width: 30px; /* チャンネルアイコンの幅 */
+        height: 30px; /* チャンネルアイコンの高さ */
+        border-radius: 50%; /* チャンネルアイコンを丸くする */
+        margin-right: 10px; /* チャンネルアイコンとチャンネル名の間の余白 */
+    }
+
+    .video-info h1 { /* タイトルのスタイル */
+        font-weight: 500; /* タイトルの太さ */
+        font-size: 1.5em; /* タイトルのフォントサイズ */
+        margin-bottom: 10px; /* タイトルの下の余白 */
+        color: #212121; /* タイトルの色 */
+    }
+
+    .video-info .description { /* 概要欄のスタイル */
+        color: #606060; /* 概要欄の色 */
+        line-height: 1.5; /* 概要欄の行間 */
     }
 </style>
 </head>
@@ -249,9 +247,6 @@
             <source src="{{videourl}}">
             {% endfor %}
         </video>
-        <div id="progress-bar">
-            <div id="progress-bar-fill"></div>
-        </div>
     </div>
     <div class="recommended-videos">
         <div class="recommended-videos">
