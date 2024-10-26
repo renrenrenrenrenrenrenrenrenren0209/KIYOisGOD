@@ -11,115 +11,198 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
 
-<style>
- 
-  }
-       .navbar {
-         position: relative;
-         display: flex;
-         justify-content: space-between;
-           align-items: center;
-         padding: 10px 5%;
-         background-color: #ffffff;
-         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-       }
-       .navbar-logo img {
-        width: 50px;
-         height: auto;
-       }
-       .navbar-search {
-         position: absolute;
-         left: 50%;
-         transform: translateX(-50%);
-         width: 50%;
-       }
-       .navbar-search form {
-         width: 100%;
-       }
-       .navbar-search input[type="search"] {
-         width: 100%;
-         padding: 8px 16px;
-         border: 1px solid #ccc;
-         border-radius: 20px;
-        font-size: 1em;
-         outline: none;
-      }
-</style>
-
-<body class="no-theme">
-    <span style="display:none" id="dark_mode_pref"></span>
-    <div class="pure-g">
-        <div class="pure-u-1 pure-u-md-2-24"></div>
-        <div class="pure-u-1 pure-u-md-20-24" id="contents">
-            <div class="pure-g navbar h-box">
-                <div class="pure-u-1 pure-u-md-12-24 searchbar">
-                    <a href="/bbs">掲示板</a>
-
-<div class="navbar-search"> 
-<form action="/search" method="get"> 
-<input type="search" type="search" id="searchbox" autocomplete="on" autocorrect="on" autocapitalize="none"
-                                spellcheck="false" name="q" placeholder="検索">
- </form>
- </div>
-
-                </div>
-            </div>
-            <div id="player-container" class="h-box">
-                <video style="outline:none;width:100%;max-height:720px !important;background-color:#000;" playsinline="" poster="{% if proxy == "True" %}/thumbnail?v={{ videoid }}{% else %}https://img.youtube.com/vi/{{ videoid }}/0.jpg{% endif
-                    %}" id="player" class="on-video_player video-js player-style-invidious" controls=""
-                    loadedmetadata="settime()" loop="">
-                    {% for videourl in videourls%}
-                    <source src="{{videourl}}">
-                    {% endfor %}
-                </video>
-                </video>
-            </div>
-            <div class="h-box">
-                <h1>{{ videotitle }}</h1>
-            </div>
-            <div class="pure-g">
-                <div class="pure-u-1 pure-u-lg-1-5">
-                    <a href="{{ videourls[0] }}" target="_blank">ダウンロード</a><br>
-                    <a
-                        href="javascript:{navigator.share({title: '動画を共有',text: '{{videotitle}}',url: location.protocol+'//'+document.domain+'/watch?v={{ videoid }}'+'&t='+Math.floor(document.getElementById('player').currentTime),})}">現時点の動画を共有</a><br>
-                    <a
-                        href="javascript:{navigator.share({title: '動画を共有',text: '{{videotitle}}',url: location.href,})}">動画を共有</a><br>
-                    <hr>
-                </div>
-                <div class="pure-u-1 pure-u-lg-3-5">
-                    <div class="h-box">
-                        <a href="/channel/{{authorid}}" style="display:block;width:fit-content;width:-moz-fit-content">
-                            <div class="channel-profile">
-
-                                <img src="{{authoricon}}">
-
-                                <span id="channel-name">{{ author }}</span>
-                            </div>
-                        </a>
-                        <div id="description-box">
-                            <div id="descriptionWrapper">{{ description | safe}}</div>
-                        </div>
-                        <hr>
-                        <div id="comments">
-                        </div>
-                    </div>
-                </div>
-                <div class="pure-u-1 pure-u-lg-1-5">
-                    <!--自動再生<input type="checkbox" id="autonext" onchange="checkautoplay()"><br>-->
-                    ループ再生<input type="checkbox" id="loop" onchange="changeloop()">
-                    {% for re in res %}
-                    <a href="/watch?v={{ re['id'] }}">
-
-                        <div class="thumbnail">
-                            <img loading="lazy" class="thumbnail" src="{% if proxy == "True" %}/thumbnail?v={{ re['id']}}{% else %}https://img.youtube.com/vi/{{ re['id'] }}/0.jpg{% endif %}">
-                        </div>
-                        <p style="width:100%">{{re["title"]}}</p>
-                    </a><br>
-                    <a href="/channel/{{re['authorId']}}">{{re["author"]}}</a>{% endfor %}
-                </div>
-            </div>
+  <style>
+    .container {
+      width: 100%;
+      background-color: #fff; 
+      padding: 0px; 
+      text-align: center; 
+    }
+    .navbar-search {
+      display: flex; 
+      align-items: center; 
+      justify-content: space-around; 
+      background-color: #fff; 
+      padding: 13px; 
+      border-radius: 5px; 
+      box-shadow: 0 30px 100px rgba(0, 0, 0, 0.1); 
+      width: 100%; 
+      margin: 0 auto; 
+    }
+    #searchbox {
+      padding: 15px;
+      border: 1px solid #ddd; 
+      border-radius: 100000px; 
+      width: 450px; 
+    }
+    .bbs-button {
+      padding: 10px 20px;
+      background-color: #808080; 
+      color: white;
+      border: none;
+      border-radius: 5px;
+      text-decoration: none;
+      display: inline-block;
+      margin-right: 10px; 
+    }
+    .video-container {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    #player-container {
+      width: 60%;
+      position: relative; /* Add position: relative to the player-container */
+    }
+    .recommended-videos {
+      width: 35%;
+    }
+    .thumbnail {
+      width: 100%;
+      height: auto;
+    }
+    .video-info {
+      margin-top: 20px;
+    }
+    #progress-bar {
+      width: 100%;
+      height: 5px;
+      background-color: #ddd;
+      border-radius: 5px;
+      position: absolute; /* Position the progress bar absolutely */
+      bottom: 10px; /* Position it below the video */
+      left: 0; /* Align it to the left */
+      z-index: 1; /* Ensure it's above the video */
+      cursor: pointer; /* Add cursor: pointer for better user experience */
+    }
+    #progress-bar-fill {
+      height: 100%;
+      background-color: #808080;
+      border-radius: 5px;
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+    #player {
+      /* Style the video player to resemble YouTube */
+      width: 100%;
+      height: auto;
+    }
+    .video-info {
+      /* Style the video information section */
+      margin-top: 10px;
+    }
+    .video-info h1 {
+      /* Style the video title */
+      font-size: 1.5em;
+      margin-bottom: 10px;
+    }
+    .channel-profile {
+      /* Style the channel profile */
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .channel-profile img {
+      /* Style the channel icon */
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+    .channel-profile span {
+      /* Style the channel name */
+      font-weight: bold;
+    }
+    .description {
+      /* Style the video description */
+      margin-bottom: 10px;
+    }
+    .recommended-videos {
+      /* Style the recommended videos section */
+      margin-top: 20px;
+    }
+    .recommended-videos .thumbnail {
+      /* Style the thumbnail images */
+      width: 100%;
+      height: auto;
+      margin-bottom: 5px;
+    }
+    .recommended-videos p {
+      /* Style the video titles */
+      margin-bottom: 10px;
+    }
+    .control-buttons {
+      /* Style the control buttons */
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .control-button {
+      /* Style the individual control buttons */
+      padding: 5px 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="navbar-search">
+      <a href="/"> 
+        <p style="text-align:left; margin-right: 10px;">
+          <img src="https://raw.githubusercontent.com/renrenrenrenrenrenrenrenrenren0209/eee/refs/heads/main/IMG_2141.jpeg" width="130">
+        </p> 
+      </a>
+      <a href="/bbs" class="bbs-button">掲示板</a>
+      <form action="/search" method="get">
+        <input type="search" id="searchbox" autocomplete="on" autocorrect="on" autocapitalize="none" spellcheck="false" name="q" placeholder="検索">
+      </form>
+    </div>
+  </div>
+  <div class="video-container">
+    <div id="player-container" class="h-box">
+        <video style="outline:none;width:100%;max-height:720px !important;background-color:#000;" playsinline="" poster="{% if proxy == "True" %}/thumbnail?v={{ videoid }}{% else %}https://img.youtube.com/vi/{{ videoid }}/0.jpg{% endif
+            %}" id="player" class="on-video_player video-js player-style-invidious" controls=""
+            loadedmetadata="settime()" loop="">
+            {% for videourl in videourls%}
+            <source src="{{videourl}}">
+            {% endfor %}
+        </video>
+        <div id="progress-bar">
+            <div id="progress-bar-fill"></div>
         </div>
     </div>
+    <div class="recommended-videos">
+        <div class="video-info">
+            <h1>{{ videotitle }}</h1>
+            <div class="channel-profile">
+                <img src="{{authoricon}}">
+                <span id="channel-name">{{ author }}</span>
+            </div>
+            <div class="description">
+                <div id="descriptionWrapper">{{ description | safe}}</div>
+            </div>
+            <hr>
+            <div id="comments">
+            </div>
+            <hr>
+            <!--自動再生<input type="checkbox" id="autonext" onchange="checkautoplay()"><br>-->
+            ループ再生<input type="checkbox" id="loop" onchange="changeloop()">
+        </div>
+        <div class="recommended-videos">
+            {% for re in res %}
+            <a href="/watch?v={{ re['id'] }}">
+                <div class="thumbnail">
+                    <img loading="lazy" class="thumbnail" src="{% if proxy == "True" %}/thumbnail?v={{ re['id']}}{% else %}https://img.youtube.com/vi/{{ re['id'] }}/0.jpg{% endif %}">
+                </div>
+                <p>{{re["title"]}}</p>
+            </a><br>
+            <a href="/channel/{{re['authorId']}}">{{re["author"]}}</a>{% endfor %}
+        </div>
+    </div>
+  </div>
     <div class="pure-u-1 pure-u-md-2-24"></div>
     <script>
         document.cookie = "yuki=True;max-age=2592000;";
@@ -155,6 +238,37 @@
                 } else {
                     v.pause();
                 }
+            }
+        }
+        var player = document.getElementById("player");
+        var progressBarFill = document.getElementById("progress-bar-fill");
+        player.addEventListener("timeupdate", function() {
+            var percentage = (player.currentTime / player.duration) * 100;
+            progressBarFill.style.width = percentage + "%";
+        });
+        function playPause() {
+            if (player.paused) {
+                player.play();
+            } else {
+                player.pause();
+            }
+        }
+        function stopVideo() {
+            player.pause();
+            player.currentTime = 0;
+        }
+        function muteUnmute() {
+            if (player.muted) {
+                player.muted = false;
+            } else {
+                player.muted = true;
+            }
+        }
+        function fullScreen() {
+            if (document.fullscreenElement) {
+                document.exitFullscreen();
+            } else {
+                player.parentElement.requestFullscreen();
             }
         }
     </script>
