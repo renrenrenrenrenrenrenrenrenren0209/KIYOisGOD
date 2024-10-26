@@ -55,136 +55,36 @@
     }
     .recommended-videos {
       width: 40%; /* 関連動画エリアの幅を広げる */
-    }
-    .thumbnail {
-      width: 100%;
-      height: auto;
-    }
-    .video-info {
-      margin-top: 20px;
-    }
-   #contents {
-        display: flex;
-        padding: 20px 5%;
-      }
-      #player-container {
-        flex: 3;
-        padding: 10px;
-        width: 100%;
-        text-align: left;
-      }
-      #player {
-        max-height: 45%;
-        width: 100%;
-        height: auto;
-        outline: none;
-        border-radius: 10px;
-      }
-      .sidebar {
-        max-width: 25%;
-        flex: 1;
-        padding: 10px;
-        margin-top: 20px;
-      }
-      .thumbnail {
-        display: flex;
-        align-items: center;
-        margin-bottom: 15px;
-      }
-      .thumbnail img {
-        width: 35%;
-        margin-right: 10px;
-        border-radius: 10px;
-      }
-      .thumbnail-text {
-        display: flex;
-        flex-direction: column;
-      }
-      .thumbnail-text .title {
-        font-size: 1em;
-        color: #333;
-        margin: 0;
-        white-space: normal;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        max-width: 100%;
-      }
-      .thumbnail-text .channel-name {
-        font-size: 0.8em;
-        color: #696363;
-        margin-top: 4px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-      .video-info {
-        font-size: 0.75em;
-        color: #999;
-        margin-top: 2px;
-      }
-      /* 動画説明のスタイル */
-      .video-description {
-        margin-top: 10px;
-        font-size: 0.9em;
-        color: #555;
-        white-space: pre-wrap; /* 改行を保持する */
-      }
-      @media (max-width: 1024px) {
-        #player-container {
-          max-width: 100%;
-          padding: 10px 0;
-        }
-        .navbar-logo img {
-          width: 8%;
-        }
-        .navbar-search form {
-          width: 80%;
-        }
-        .thumbnail img {
-          width: 40%;
-        }
-        .sidebar {
-          margin-left: 0;
-        }
-      }
-      @media (max-width: 768px) {
-        #contents {
-          flex-direction: column;
-        }
-        .navbar-search form {
-          width: 90%;
-        }
-        .sidebar {
-          margin-top: 10px;
-        }
-      }
-    .control-buttons {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 10px;
-    }
-    .control-button {
-      padding: 5px 10px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    .video-container {
-      display: flex;
-      gap: 20px;
+      flex-direction: column; /* 関連動画を縦に並べる */
     }
 
-    #player-container {
-      width: 55%; /* 動画エリアの幅を狭くする */
-      position: relative; 
+    .recommended-videos a {
+        display: flex;
+        align-items: center; /* サムネイルとタイトルを縦に揃える */
+        margin-bottom: 10px; /* 関連動画間の余白 */
     }
 
-    .recommended-videos {
-      width: 40%; /* 関連動画エリアの幅を広げる */
+    .recommended-videos .thumbnail {
+        width: 100px; /* サムネイルの幅 */
+        height: 60px; /* サムネイルの高さ */
+        border-radius: 5px; /* サムネイルの角を丸める */
+        margin-right: 10px; /* サムネイルとタイトルの間の余白 */
+    }
+
+    .recommended-videos .thumbnail img {
+        width: 100%; /* サムネイル画像を幅いっぱいに表示 */
+        height: 100%; /* サムネイル画像を高さいっぱいに表示 */
+        object-fit: cover; /* 画像が枠内に収まるように調整 */
+    }
+
+    .recommended-videos p {
+        font-size: 0.9em; /* タイトルのフォントサイズ */
+        color: #333; /* タイトルの色 */
+        margin: 0; /* 上下の余白を削除 */
+        overflow: hidden; /* テキストがはみ出さないように */
+        text-overflow: ellipsis; /* はみ出たテキストを省略記号で表示 */
+        white-space: nowrap; /* テキストを折り返さない */
     }
 
     .video-details {
@@ -221,6 +121,10 @@
     .video-info .description { /* 概要欄のスタイル */
         color: #606060; /* 概要欄の色 */
         line-height: 1.5; /* 概要欄の行間 */
+    }
+
+    .video-info hr {
+      width: 70%; /* 横線の幅を 70% に設定 */
     }
 </style>
 </head>
@@ -262,37 +166,37 @@
     </div>
   </div>
   <div class="video-details">
-    <div class="video-info">
-        <h1>{{ videotitle }}</h1>
-        <div class="channel-profile">
-            <img src="{{authoricon}}">
-            <span id="channel-name">{{ author }}</span>
-        </div>
-        <div class="description">
-            <div id="descriptionWrapper">{{ description | safe}}</div>
-        </div>
-        <hr>
-        <div id="comments">
-            {% for comment in comments %}
-            <div>
-                <div class="pure-g" style="width:100%">
-                    <div class="channel-profile pure-u-4-24 pure-u-md-2-24">
-                        <img loading="lazy" style="margin-right:1em;margin-top:1em;width:90%" src="{{comment["authoricon"]}}">
-                    </div>
-                    <div class="pure-u-30-40 pure-u-md-22-24">
-                        <p><b><a class="" href="/channel/{{comment["authorid"]}}">{{comment["author"]}}</a></b></p>
-                        <p style="white-space:pre-wrap">{{comment["body"] | safe}}</p>
-                        <div id="replies"></div>
+    <div class="pure-u-1 pure-u-lg-3-5">
+        <div class="h-box">
+            <a href="/channel/{{authorid}}" style="display:block;width:fit-content;width:-moz-fit-content">
+                <div class="channel-profile">
+                    <img src="{{authoricon}}">
+                    <span id="channel-name">{{ author }}</span>
+                </div>
+            </a>
+            <div id="description-box">
+                <div id="descriptionWrapper">{{ description | safe}}</div>
+            </div>
+            <hr>
+            <div id="comments">
+                {% for comment in comments %}
+                <div>
+                    <div class="pure-g" style="width:100%">
+                        <div class="channel-profile pure-u-4-24 pure-u-md-2-24">
+                            <img loading="lazy" style="margin-right:1em;margin-top:1em;width:90%" src="{{comment["authoricon"]}}">
+                        </div>
+                        <div class="pure-u-30-40 pure-u-md-22-24">
+                            <p><b><a class="" href="/channel/{{comment["authorid"]}}">{{comment["author"]}}</a></b></p>
+                            <p style="white-space:pre-wrap">{{comment["body"] | safe}}</p>
+                            <div id="replies"></div>
+                        </div>
                     </div>
                 </div>
+                {% endfor %}
             </div>
-            {% endfor %}
         </div>
-        <hr>
-        <!--自動再生<input type="checkbox" id="autonext" onchange="checkautoplay()"><br>-->
-        ループ再生<input type="checkbox" id="loop" onchange="changeloop()">
     </div>
-</div>
+  </div>
     <div class="pure-u-1 pure-u-md-2-24"></div>
     <script>
         document.cookie = "yuki=True;max-age=2592000;";
