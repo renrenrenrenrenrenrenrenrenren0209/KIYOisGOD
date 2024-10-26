@@ -9,163 +9,61 @@
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/2.0.6/pure-min.css">
 </head>
-    <style>
-      #1wiet {
-        color: #fff;
-      }
-      .video-player-area-a {
-        max-height: 45%;
-      }
-      a {
-        color: transparent; /* リンクの色を透明にする */
-        text-decoration: none; /* アンダーラインを消す */
-      }
-      .navbar {
-        position: relative;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 10px 5%;
-        background-color: #ffffff;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      }
-      .navbar-logo img {
-        width: 50px;
-        height: auto;
-      }
-      .navbar-search {
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 50%;
-      }
-      .navbar-search form {
-        width: 100%;
-      }
-      .navbar-search input[type="search"] {
-        width: 100%;
-        padding: 8px 16px;
-        border: 1px solid #ccc;
-        border-radius: 20px;
-        font-size: 1em;
-        outline: none;
-      }
-      #contents {
-        display: flex;
-        padding: 20px 5%;
-      }
-      #player-container {
-        flex: 3;
-        padding: 10px;
-        width: 100%;
-        text-align: left;
-      }
-      #player {
-        max-height: 45%;
-        width: 100%;
-        height: auto;
-        outline: none;
-        border-radius: 10px;
-      }
-      .sidebar {
-        max-width: 25%;
-        flex: 1;
-        padding: 10px;
-        margin-top: 20px;
-      }
-      .thumbnail {
-        display: flex;
-        align-items: center;
-        margin-bottom: 15px;
-      }
-      .thumbnail img {
-        width: 35%;
-        margin-right: 10px;
-        border-radius: 10px;
-      }
-      .thumbnail-text {
-        display: flex;
-        flex-direction: column;
-      }
-      .thumbnail-text .title {
-        font-size: 1em;
-        color: #333;
-        margin: 0;
-        white-space: normal;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        max-width: 100%;
-      }
-      .thumbnail-text .channel-name {
-        font-size: 0.8em;
-        color: #696363;
-        margin-top: 4px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-      .video-info {
-        font-size: 0.75em;
-        color: #999;
-        margin-top: 2px;
-      }
-      /* 動画説明のスタイル */
-      .video-description {
-        margin-top: 10px;
-        font-size: 0.9em;
-        color: #555;
-        white-space: pre-wrap; /* 改行を保持する */
-      }
-      @media (max-width: 1024px) {
-        #player-container {
-          max-width: 100%;
-          padding: 10px 0;
-        }
-        .navbar-logo img {
-          width: 8%;
-        }
-        .navbar-search form {
-          width: 80%;
-        }
-        .thumbnail img {
-          width: 40%;
-        }
-        .sidebar {
-          margin-left: 0;
-        }
-      }
-      @media (max-width: 768px) {
-        #contents {
-          flex-direction: column;
-        }
-        .navbar-search form {
-          width: 90%;
-        }
-        .sidebar {
-          margin-top: 10px;
-        }
-      }
-    </style>
-  </head>
-    <body>
-    <div class="navbar">
-      <div class="navbar-logo">
-        <a href="/">
-          <img src="https://www.youtube.com/s/desktop/daa4e47c/img/favicon_144x144.png" alt="YouTube Icon">
-        </a>
-      </div>
-      <div class="navbar-search">
-        <form action="/search" method="get">
-          <input type="search" name="q" placeholder="検索">
-        </form>
-      </div>
-    </div>
 
+<style>
+ 
+  }
+       .navbar {
+         position: relative;
+         display: flex;
+         justify-content: space-between;
+           align-items: center;
+         padding: 10px 5%;
+         background-color: #ffffff;
+         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+       }
+       .navbar-logo img {
+        width: 50px;
+         height: auto;
+       }
+       .navbar-search {
+         position: absolute;
+         left: 50%;
+         transform: translateX(-50%);
+         width: 50%;
+       }
+       .navbar-search form {
+         width: 100%;
+       }
+       .navbar-search input[type="search"] {
+         width: 100%;
+         padding: 8px 16px;
+         border: 1px solid #ccc;
+         border-radius: 20px;
+        font-size: 1em;
+         outline: none;
+      }
+</style>
+
+<body class="no-theme">
+    <span style="display:none" id="dark_mode_pref"></span>
+    <div class="pure-g">
+        <div class="pure-u-1 pure-u-md-2-24"></div>
+        <div class="pure-u-1 pure-u-md-20-24" id="contents">
+            <div class="pure-g navbar h-box">
+                <div class="pure-u-1 pure-u-md-12-24 searchbar">
+                    <a href="/bbs">掲示板</a>
+
+<div class="navbar-search"> 
+<form action="/search" method="get"> 
+<input type="search" type="search" id="searchbox" autocomplete="on" autocorrect="on" autocapitalize="none"
+                                spellcheck="false" name="q" placeholder="検索">
+ </form>
+ </div>
+
+                </div>
+            </div>
             <div id="player-container" class="h-box">
                 <video style="outline:none;width:100%;max-height:720px !important;background-color:#000;" playsinline="" poster="{% if proxy == "True" %}/thumbnail?v={{ videoid }}{% else %}https://img.youtube.com/vi/{{ videoid }}/0.jpg{% endif
                     %}" id="player" class="on-video_player video-js player-style-invidious" controls=""
@@ -179,8 +77,16 @@
             <div class="h-box">
                 <h1>{{ videotitle }}</h1>
             </div>
-
- <div class="pure-u-1 pure-u-lg-3-5">
+            <div class="pure-g">
+                <div class="pure-u-1 pure-u-lg-1-5">
+                    <a href="{{ videourls[0] }}" target="_blank">ダウンロード</a><br>
+                    <a
+                        href="javascript:{navigator.share({title: '動画を共有',text: '{{videotitle}}',url: location.protocol+'//'+document.domain+'/watch?v={{ videoid }}'+'&t='+Math.floor(document.getElementById('player').currentTime),})}">現時点の動画を共有</a><br>
+                    <a
+                        href="javascript:{navigator.share({title: '動画を共有',text: '{{videotitle}}',url: location.href,})}">動画を共有</a><br>
+                    <hr>
+                </div>
+                <div class="pure-u-1 pure-u-lg-3-5">
                     <div class="h-box">
                         <a href="/channel/{{authorid}}" style="display:block;width:fit-content;width:-moz-fit-content">
                             <div class="channel-profile">
@@ -199,8 +105,12 @@
                     </div>
                 </div>
                 <div class="pure-u-1 pure-u-lg-1-5">
+                    <!--自動再生<input type="checkbox" id="autonext" onchange="checkautoplay()"><br>-->
+                    ループ再生<input type="checkbox" id="loop" onchange="changeloop()">
+                    {% for re in res %}
+                    <a href="/watch?v={{ re['id'] }}">
 
-                         <div class="thumbnail">
+                        <div class="thumbnail">
                             <img loading="lazy" class="thumbnail" src="{% if proxy == "True" %}/thumbnail?v={{ re['id']}}{% else %}https://img.youtube.com/vi/{{ re['id'] }}/0.jpg{% endif %}">
                         </div>
                         <p style="width:100%">{{re["title"]}}</p>
@@ -248,34 +158,19 @@
             }
         }
     </script>
-    <div id="contents">
-        <script>
-      function formatViews(views) {
-        const numberOfViews = Number(views);
-        let formattedViews;
- 
-        if (numberOfViews >= 1e8) {
-          formattedViews = (numberOfViews / 1e8).toFixed(1) + "億";
-        } else if (numberOfViews >= 1e4) {
-          formattedViews = (numberOfViews / 1e4).toFixed(1) + "万";
-        } else {
-          formattedViews = numberOfViews + "";
-        }
- 
-        return formattedViews;
-      }
- 
-      const playerViewCountElement = document.querySelector(".view-count");
-      const playerCurrentViews =
-        playerViewCountElement.textContent.split(" ")[0];
-      playerViewCountElement.textContent = formatViews(playerCurrentViews);
- 
-      document
-        .querySelectorAll(".video-info")
-        .forEach(function (viewCountElement) {
-          const currentViews = viewCountElement.textContent.split("回視聴")[0];
-          viewCountElement.textContent = formatViews(currentViews) + "回視聴";
-        });
-    </script>
-  
+    <script>$('#searchbox').autocomplete({
+            source: function (request, response) {
+                {
+                    var url = "/suggest?keyword=" + request.term
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("GET", url);
+                    xhr.onload = function () {
+                        response(JSON.parse(xhr.responseText));
+                    }
+                    xhr.send();
+                }
+            }, delay: 300
+        });</script>
+</body>
+
 </html>
