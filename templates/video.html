@@ -11,78 +11,176 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
 
-<body class="no-theme">
-    <span style="display:none" id="dark_mode_pref"></span>
-    <div class="pure-g">
-        <div class="pure-u-1 pure-u-md-2-24"></div>
-        <div class="pure-u-1 pure-u-md-20-24" id="contents">
-            <div class="pure-g navbar h-box">
-                <div class="pure-u-1 pure-u-md-12-24 searchbar">
-                    <a href="/bbs">掲示板</a>
-                    <form class="pure-form" action="/search" method="get">
-                        <fieldset>
-                            <input type="search" id="searchbox" autocomplete="on" autocorrect="on" autocapitalize="none"
-                                spellcheck="false" name="q" placeholder="検索" title="検索" value="">
-                        </fieldset>
-                    </form>
-                </div>
-            </div>
-            <div id="player-container" class="h-box">
-                <video style="outline:none;width:100%;max-height:720px !important;background-color:#000;" playsinline="" poster="{% if proxy == "True" %}/thumbnail?v={{ videoid }}{% else %}https://img.youtube.com/vi/{{ videoid }}/0.jpg{% endif
-                    %}" id="player" class="on-video_player video-js player-style-invidious" controls=""
-                    loadedmetadata="settime()" loop="">
-                    {% for videourl in videourls%}
-                    <source src="{{videourl}}">
-                    {% endfor %}
-                </video>
-                </video>
-            </div>
-            <div class="h-box">
-                <h1>{{ videotitle }}</h1>
-            </div>
-            <div class="pure-g">
-                <div class="pure-u-1 pure-u-lg-1-5">
-                    <a href="{{ videourls[0] }}" target="_blank">ダウンロード</a><br>
-                    <a
-                        href="javascript:{navigator.share({title: '動画を共有',text: '{{videotitle}}',url: location.protocol+'//'+document.domain+'/watch?v={{ videoid }}'+'&t='+Math.floor(document.getElementById('player').currentTime),})}">現時点の動画を共有</a><br>
-                    <a
-                        href="javascript:{navigator.share({title: '動画を共有',text: '{{videotitle}}',url: location.href,})}">動画を共有</a><br>
-                    <hr>
-                </div>
-                <div class="pure-u-1 pure-u-lg-3-5">
-                    <div class="h-box">
-                        <a href="/channel/{{authorid}}" style="display:block;width:fit-content;width:-moz-fit-content">
-                            <div class="channel-profile">
+                <style>
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background-color: #fff;
+}
 
-                                <img src="{{authoricon}}">
+/* ヘッダー */
+.header {
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+}
 
-                                <span id="channel-name">{{ author }}</span>
-                            </div>
-                        </a>
-                        <div id="description-box">
-                            <div id="descriptionWrapper">{{ description | safe}}</div>
-                        </div>
-                        <hr>
-                        <div id="comments">
-                        </div>
-                    </div>
-                </div>
-                <div class="pure-u-1 pure-u-lg-1-5">
-                    <!--自動再生<input type="checkbox" id="autonext" onchange="checkautoplay()"><br>-->
-                    ループ再生<input type="checkbox" id="loop" onchange="changeloop()">
-                    {% for re in res %}
-                    <a href="/watch?v={{ re['id'] }}">
+.header-logo {
+  display: flex;
+  align-items: center;
+}
 
-                        <div class="thumbnail">
-                            <img loading="lazy" class="thumbnail" src="{% if proxy == "True" %}/thumbnail?v={{ re['id']}}{% else %}https://img.youtube.com/vi/{{ re['id'] }}/0.jpg{% endif %}">
-                        </div>
-                        <p style="width:100%">{{re["title"]}}</p>
-                    </a><br>
-                    <a href="/channel/{{re['authorId']}}">{{re["author"]}}</a>{% endfor %}
-                </div>
-            </div>
-        </div>
-    </div>
+.header-logo img {
+  width: 100px; /* YouTubeのロゴサイズに合わせて調整 */
+}
+
+.header-search {
+  position: relative;
+  width: 500px; /* 検索バーの幅 */
+  margin-left: 20px;
+}
+
+.header-search input[type="search"] {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  font-size: 1em;
+  outline: none;
+}
+
+.header-search button {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.header-search button i { /* 検索アイコン */
+  font-size: 1.2em;
+  color: #666;
+}
+
+.header-user {
+  display: flex;
+  align-items: center;
+}
+
+.header-user img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+/* メインコンテンツ */
+.main-content {
+  display: flex;
+  padding: 20px;
+}
+
+.main-content-sidebar {
+  width: 250px; /* サイドバーの幅 */
+  margin-right: 20px;
+}
+
+.main-content-player {
+  flex: 1;
+}
+
+/* サイドバー */
+.sidebar-section {
+  margin-bottom: 20px;
+}
+
+.sidebar-section h3 {
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
+.sidebar-list {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar-list li {
+  margin-bottom: 8px;
+  padding: 8px 12px;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.sidebar-list li:hover {
+  background-color: #e0e0e0;
+}
+
+/* プレーヤー */
+.player-container {
+  position: relative;
+}
+
+.player-video {
+  width: 100%;
+  height: 400px; /* ビデオの高さ */
+  border-radius: 4px;
+}
+
+.player-controls {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.player-controls button {
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+}
+
+.player-controls i {
+  font-size: 1.2em;
+}
+
+.player-controls .time {
+  color: #fff;
+}
+
+/* レスポンシブデザイン */
+@media (max-width: 1024px) {
+  .header-search {
+    width: 300px;
+  }
+
+  .main-content-sidebar {
+    width: 200px;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    flex-direction: column;
+  }
+
+  .main-content-sidebar {
+    margin-bottom: 20px;
+  }
+}
+                    </style>
     <div class="pure-u-1 pure-u-md-2-24"></div>
     <script>
         document.cookie = "yuki=True;max-age=2592000;";
