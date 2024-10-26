@@ -74,16 +74,16 @@
 
         #player {
             width: 100%;
-            height: 400px; /* 動画エリアの高さ */
+            height: 360px; /* 動画エリアの高さ */ /* ちょうどいい大きさに調整 */
         }
 
         .recommended-videos {
-            width: 35%; /* 関連動画エリアの幅を広げる */
+            width: 45%; /* 関連動画エリアの幅を広げる */
             display: flex;
             flex-direction: column; /* 関連動画を縦に並べる */
             position: absolute; /* 関連動画エリアを絶対配置 */
-            top: 420px; /* 動画エリアの下に配置 */
-            right: 0; /* 右端に配置 */
+            top: 380px; /* 動画エリアの下に配置 */
+            right: 10px; /* 右端に配置 */
         }
 
         .recommended-videos a {
@@ -95,8 +95,8 @@
         }
 
         .recommended-videos .thumbnail {
-            width: 120px; /* サムネイルの幅 */
-            height: 68px; /* サムネイルの高さ */ /* YouTubeに合わせる */
+            width: 180px; /* サムネイルの幅 */ /* サムネイルを大きくする */
+            height: 100px; /* サムネイルの高さ */ /* サムネイルを大きくする */
             border-radius: 5px; /* サムネイルの角を丸める */
             margin-right: 10px; /* サムネイルとタイトルの間の余白 */
         }
@@ -114,6 +114,7 @@
             overflow: hidden; /* テキストがはみ出さないように */
             text-overflow: ellipsis; /* はみ出たテキストを省略記号で表示 */
             white-space: nowrap; /* テキストを折り返さない */
+            /* width: 150px; */ /* タイトルの幅を調整 */
         }
 
         .video-details {
@@ -124,7 +125,7 @@
         }
 
         .video-info {
-            width: 65%; /* 動画詳細エリアの幅を調整 */
+            width: 40%; /* 動画詳細エリアの幅を調整 */
             margin-bottom: 20px; /* コメントエリアとの間隔 */
         }
 
@@ -161,7 +162,7 @@
         }
 
         #comments {
-            width: 30%; /* コメントエリアの幅を調整 */
+            width: 55%; /* コメントエリアの幅を調整 */
             margin-top: 20px; /* 動画の下に表示 */
         }
 
@@ -266,7 +267,7 @@
 
         <div class="video-container">
             <div id="player-container" class="h-box">
-                <video style="outline:none;width:100%;max-height:720px !important;background-color:#000;" playsinline="" poster="{% if proxy == "True" %}/thumbnail?v={{ videoid }}{% else %}https://img.youtube.com/vi/{{ videoid }}/0.jpg{% endif
+                <video style="outline:none;width:100%;max-height:360px !important;background-color:#000;" playsinline="" poster="{% if proxy == "True" %}/thumbnail?v={{ videoid }}{% else %}https://img.youtube.com/vi/{{ videoid }}/0.jpg{% endif
                     %}" id="player" class="on-video_player video-js player-style-invidious" controls=""
                     loadedmetadata="settime()" loop="">
                     {% for videourl in videourls%}
@@ -281,7 +282,7 @@
                         <div class="thumbnail">
                             <img loading="lazy" class="thumbnail" src="{% if proxy == "True" %}/thumbnail?v={{ re['id']}}{% else %}https://img.youtube.com/vi/{{ re['id'] }}/0.jpg{% endif %}">
                         </div>
-                        <p>{{re["title"]}}</p>
+                        <p style="margin-right: 10px;">{{re["title"]}}</p>
                     </a><br>
                     <a href="/channel/{{re['authorId']}}">{{re["author"]}}</a>{% endfor %}
                 </div>
@@ -391,9 +392,7 @@
             }
         }
     </script>
-    <script>$('#searchbox').autocomplete({
-            source: function (request, response) {
-                {
+<script>
                     var url = "/suggest?keyword=" + request.term
                     var xhr = new XMLHttpRequest();
                     xhr.open("GET", url);
