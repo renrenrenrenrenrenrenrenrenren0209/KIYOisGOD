@@ -2,9 +2,7 @@
 <html lang="ja">
 <head>
     <title>{{videotitle}} </title>
-    <link rel="stylesheet" href="/css/pure-min.css">
-    <link rel="stylesheet" href="/css/grids-responsive-min.css">
-    <link rel="stylesheet" href="/css/ionicons.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">
     <link rel="stylesheet" href="/css/default.css">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
@@ -12,193 +10,315 @@
 </head>
 
 <style>
+    body {
+        font-family: 'Roboto', sans-serif;
+        margin: 0;
+        background-color: #f0f0f0;
+    }
+
     .container {
-      width: 100%;
-      background-color: #fff; 
-      padding: 0px; 
-      text-align: center; 
+        width: 100%;
+        max-width: 1280px;
+        margin: 0 auto;
     }
+
     .navbar-search {
-      display: flex; 
-      align-items: center; 
-      justify-content: space-around; 
-      background-color: #fff; 
-      padding: 13px; 
-      border-radius: 5px; 
-      box-shadow: 0 30px 100px rgba(0, 0, 0, 0.1); 
-      width: 100%; 
-      margin: 0 auto; 
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: #fff;
+        padding: 10px 20px;
+        border-bottom: 1px solid #ddd;
     }
+
+    .navbar-search a {
+        text-decoration: none;
+        color: #333;
+    }
+
+    .navbar-search img {
+        width: 100px;
+        height: auto;
+        margin-right: 20px;
+    }
+
     #searchbox {
-      padding: 15px;
-      border: 1px solid #ddd; 
-      border-radius: 100000px; 
-      width: 450px; 
+        padding: 8px 12px;
+        border: 1px solid #ddd;
+        border-radius: 20px;
+        width: 300px;
+        font-size: 16px;
     }
+
     .bbs-button {
-      padding: 10px 20px;
-      background-color: #808080; 
-      color: white;
-      border: none;
-      border-radius: 5px;
-      text-decoration: none;
-      display: inline-block;
-      margin-right: 10px; 
+        padding: 8px 16px;
+        background-color: #f0f0f0;
+        color: #333;
+        border: 1px solid #ddd;
+        border-radius: 20px;
+        text-decoration: none;
+        display: inline-block;
+        margin-right: 10px; 
+        font-size: 16px;
     }
+
     .video-container {
-      display: flex;
-      gap: 10px; /* 動画と関連動画の間の空白を調整 */
+        display: flex;
+        margin-top: 20px;
     }
+
     #player-container {
-      width: 60%; /* 動画エリアの幅を狭くする */
-      position: relative; 
+        width: 60%;
+        position: relative;
+        margin-right: 20px;
     }
+
+    #player {
+        width: 100%;
+        height: 400px;
+    }
+
     .recommended-videos {
-      width: 35%; /* 関連動画エリアの幅を広げる */
-      display: flex;
-      flex-direction: column; /* 関連動画を縦に並べる */
+        width: 35%;
+        display: flex;
+        flex-direction: column;
     }
 
     .recommended-videos a {
         display: flex;
-        align-items: center; /* サムネイルとタイトルを縦に揃える */
-        margin-bottom: 10px; /* 関連動画間の余白 */
+        align-items: center;
+        margin-bottom: 10px;
+        text-decoration: none;
+        color: #333;
     }
 
     .recommended-videos .thumbnail {
-        width: 120px; /* サムネイルの幅 */
-        height: 70px; /* サムネイルの高さ */
-        border-radius: 5px; /* サムネイルの角を丸める */
-        margin-right: 10px; /* サムネイルとタイトルの間の余白 */
+        width: 120px;
+        height: 70px;
+        border-radius: 5px;
+        margin-right: 10px;
     }
 
     .recommended-videos .thumbnail img {
-        width: 100%; /* サムネイル画像を幅いっぱいに表示 */
-        height: 100%; /* サムネイル画像を高さいっぱいに表示 */
-        object-fit: cover; /* 画像が枠内に収まるように調整 */
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
     }
 
     .recommended-videos p {
-        font-size: 0.9em; /* タイトルのフォントサイズ */
-        color: #333; /* タイトルの色 */
-        margin: 0; /* 上下の余白を削除 */
-        overflow: hidden; /* テキストがはみ出さないように */
-        text-overflow: ellipsis; /* はみ出たテキストを省略記号で表示 */
-        white-space: nowrap; /* テキストを折り返さない */
+        font-size: 0.9em;
+        color: #333;
+        margin: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 
     .video-details {
-      margin-top: 20px;
-      display: flex;
-      justify-content: flex-start; /* 内容を左寄せ */
+        display: flex;
+        margin-top: 20px;
     }
 
     .video-info {
-      width: 70%; /* 動画エリアの幅より狭くする */
+        width: 65%;
+        margin-right: 20px;
     }
 
     .channel-profile {
-      display: flex;
-      align-items: center; /* 画像とチャンネル名を縦に揃える */
-      margin-bottom: 10px; /* チャンネル情報の下の余白 */
-      color: #606060; /* チャンネル名の色 */
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+        color: #606060;
     }
 
-    .channel-profile img { /* チャンネルアイコンのスタイル */
-        width: 30px; /* チャンネルアイコンの幅 */
-        height: 30px; /* チャンネルアイコンの高さ */
-        border-radius: 50%; /* チャンネルアイコンを丸くする */
-        margin-right: 10px; /* チャンネルアイコンとチャンネル名の間の余白 */
+    .channel-profile img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        margin-right: 10px;
     }
 
-    .video-info h1 { /* タイトルのスタイル */
-        font-weight: 500; /* タイトルの太さ */
-        font-size: 1.5em; /* タイトルのフォントサイズ */
-        margin-bottom: 10px; /* タイトルの下の余白 */
-        color: #212121; /* タイトルの色 */
+    .video-info h1 {
+        font-weight: 500;
+        font-size: 1.5em;
+        margin-bottom: 10px;
+        color: #212121;
     }
 
-    .video-info .description { /* 概要欄のスタイル */
-        color: #606060; /* 概要欄の色 */
-        line-height: 1.5; /* 概要欄の行間 */
+    .video-info .description {
+        color: #606060;
+        line-height: 1.5;
     }
 
     .video-info hr {
-      width: 70%; /* 横線の幅を 70% に設定 */
+        width: 100%;
+        margin-bottom: 20px;
+        border: 1px solid #ddd;
+    }
+
+    #comments {
+        width: 100%; 
+        margin-top: 20px; 
+    }
+
+    #comments .pure-g {
+        border-bottom: 1px solid #ddd;
+        padding: 10px 0;
+    }
+
+    #comments .channel-profile {
+        margin-bottom: 5px;
+    }
+
+    #comments .channel-profile img {
+        width: 40px;
+        height: 40px;
+    }
+
+    #comments p {
+        margin: 0;
+        font-size: 14px;
+    }
+
+    #comments .pure-g p {
+        margin-bottom: 5px; 
+    }
+
+    #comments .pure-g b {
+        font-weight: bold;
+        color: #333;
+    }
+
+    #comments .pure-g a {
+        color: #007bff;
+        text-decoration: none;
+    }
+
+    #comments .pure-g a:hover {
+        text-decoration: underline;
+    }
+
+    /* 概要欄 */
+    .video-description {
+        margin-bottom: 20px;
+    }
+
+    .video-description h2 {
+        font-size: 1.2em;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .video-description p {
+        color: #606060;
+        line-height: 1.5;
+        margin-bottom: 5px;
+    }
+
+    /* レスポンシブデザインのためのメディアクエリ */
+    @media (max-width: 768px) {
+        .video-container {
+            flex-direction: column;
+        }
+
+        #player-container {
+            width: 100%;
+            margin-right: 0;
+        }
+
+        .recommended-videos {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .video-details {
+            flex-direction: column;
+        }
+
+        .video-info {
+            width: 100%;
+            margin-right: 0;
+        }
+
+        #comments {
+            width: 100%;
+            margin-left: 0;
+            margin-top: 20px;
+        }
     }
 </style>
 </head>
 <body>
-  <div class="container">
-    <div class="navbar-search">
-      <a href="/"> 
-        <p style="text-align:left; margin-right: 10px;">
-          <img src="https://raw.githubusercontent.com/renrenrenrenrenrenrenrenrenren0209/eee/refs/heads/main/IMG_2141.jpeg" width="130">
-        </p> 
-      </a>
-      <a href="/bbs" class="bbs-button">掲示板</a>
-      <form action="/search" method="get">
-        <input type="search" id="searchbox" autocomplete="on" autocorrect="on" autocapitalize="none" spellcheck="false" name="q" placeholder="検索">
-      </form>
-    </div>
-  </div>
-  <div class="video-container">
-    <div id="player-container" class="h-box">
-        <video style="outline:none;width:100%;max-height:720px !important;background-color:#000;" playsinline="" poster="{% if proxy == "True" %}/thumbnail?v={{ videoid }}{% else %}https://img.youtube.com/vi/{{ videoid }}/0.jpg{% endif
-            %}" id="player" class="on-video_player video-js player-style-invidious" controls=""
-            loadedmetadata="settime()" loop="">
-            {% for videourl in videourls%}
-            <source src="{{videourl}}">
-            {% endfor %}
-        </video>
-    </div>
-    <div class="recommended-videos">
-        <div class="recommended-videos">
-            {% for re in res %}
-            <a href="/watch?v={{ re['id'] }}">
-                <div class="thumbnail">
-                    <img loading="lazy" class="thumbnail" src="{% if proxy == "True" %}/thumbnail?v={{ re['id']}}{% else %}https://img.youtube.com/vi/{{ re['id'] }}/0.jpg{% endif %}">
-                </div>
-                <p>{{re["title"]}}</p>
-            </a><br>
-            <a href="/channel/{{re['authorId']}}">{{re["author"]}}</a>{% endfor %}
-        </div>
-    </div>
-  </div>
-
-  <div class="video-details">
-    <div class="pure-u-1 pure-u-lg-3-5">
-        <div class="h-box">
-            <a href="/channel/{{authorid}}" style="display:block;width:fit-content;width:-moz-fit-content">
-                <div class="channel-profile">
-                    <img src="{{authoricon}}">
-                    <span id="channel-name">{{ author }}</span>
-                </div>
+    <div class="container">
+        <div class="navbar-search">
+            <a href="/">
+                <img src="https://raw.githubusercontent.com/renrenrenrenrenrenrenrenrenren0209/eee/refs/heads/main/IMG_2141.jpeg" alt="サイトロゴ">
             </a>
-            <div id="description-box">
-                <div id="descriptionWrapper">{{ description | safe}}</div>
+            <a href="/bbs" class="bbs-button">掲示板</a>
+            <form action="/search" method="get">
+                <input type="search" id="searchbox" autocomplete="on" autocorrect="on" autocapitalize="none" spellcheck="false" name="q" placeholder="検索">
+            </form>
+        </div>
+
+        <div class="video-container">
+            <div id="player-container" class="h-box">
+                <video style="outline:none;width:100%;max-height:720px !important;background-color:#000;" playsinline="" poster="{% if proxy == "True" %}/thumbnail?v={{ videoid }}{% else %}https://img.youtube.com/vi/{{ videoid }}/0.jpg{% endif
+                    %}" id="player" class="on-video_player video-js player-style-invidious" controls=""
+                    loadedmetadata="settime()" loop="">
+                    {% for videourl in videourls%}
+                    <source src="{{videourl}}">
+                    {% endfor %}
+                </video>
             </div>
-            <hr>
-            <div id="comments">
-                {% for comment in comments %}
-                <div>
-                    <div class="pure-g" style="width:100%">
-                        <div class="channel-profile pure-u-4-24 pure-u-md-2-24">
-                            <img loading="lazy" style="margin-right:1em;margin-top:1em;width:90%" src="{{comment["authoricon"]}}">
+            <div class="recommended-videos">
+                <div class="recommended-videos">
+                    {% for re in res %}
+                    <a href="/watch?v={{ re['id'] }}">
+                        <div class="thumbnail">
+                            <img loading="lazy" class="thumbnail" src="{% if proxy == "True" %}/thumbnail?v={{ re['id']}}{% else %}https://img.youtube.com/vi/{{ re['id'] }}/0.jpg{% endif %}">
                         </div>
-                        <div class="pure-u-30-40 pure-u-md-22-24">
-                            <p><b><a class="" href="/channel/{{comment["authorid"]}}">{{comment["author"]}}</a></b></p>
-                            <p style="white-space:pre-wrap">{{comment["body"] | safe}}</p>
-                            <div id="replies"></div>
+                        <p>{{re["title"]}}</p>
+                    </a><br>
+                    <a href="/channel/{{re['authorId']}}">{{re["author"]}}</a>{% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="video-details">
+            <div class="video-info">
+                <div class="h-box">
+                    <a href="/channel/{{authorid}}" style="display:block;width:fit-content;width:-moz-fit-content">
+                        <div class="channel-profile">
+                            <img src="{{authoricon}}">
+                            <span id="channel-name">{{ author }}</span>
                         </div>
+                    </a>
+                    <div class="video-description">
+                        <h2>{{ videotitle }}</h2>
+                        <p>{{ description | safe }}</p>
+                        <p>投稿日時: {{ publishedAt }}</p>
+                        <p>チャンネル: <a href="/channel/{{ authorid }}">{{ author }}</a></p>
+                    </div>
+                    <hr>
+                    <div id="comments">
+                        {% for comment in comments %}
+                        <div class="pure-g">
+                            <div class="channel-profile pure-u-4-24 pure-u-md-2-24">
+                                <img loading="lazy" style="margin-right:1em;margin-top:1em;width:90%" src="{{comment["authoricon"]}}">
+                            </div>
+                            <div class="pure-u-30-40 pure-u-md-22-24">
+                                <p><b><a class="" href="/channel/{{comment["authorid"]}}">{{comment["author"]}}</a></b></p>
+                                <p style="white-space:pre-wrap">{{comment["body"] | safe}}</p>
+                                <div id="replies"></div>
+                            </div>
+                        </div>
+                        {% endfor %}
                     </div>
                 </div>
-                {% endfor %}
             </div>
         </div>
     </div>
-  </div>
-    <div class="pure-u-1 pure-u-md-2-24"></div>
+
     <script>
         document.cookie = "yuki=True;max-age=2592000;";
         function getCookie(name) { let matches = document.cookie.match(new RegExp("(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)")); return matches ? decodeURIComponent(matches[1]) : undefined; }
