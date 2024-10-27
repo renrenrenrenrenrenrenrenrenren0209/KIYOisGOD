@@ -65,10 +65,11 @@
         .video-container {
             margin-top: 20px;
             position: relative; /* 動画エリアに相対位置を設定 */
+            display: flex; /* 動画と関連動画を横に並べる */
         }
 
         #player-container {
-            width: 100%; /* 動画エリアを全幅に */
+            width: 60%; /* 動画エリアを全幅に */
             position: relative; 
         }
 
@@ -81,9 +82,7 @@
             width: 45%; /* 関連動画エリアの幅を広げる */
             display: flex;
             flex-direction: column; /* 関連動画を縦に並べる */
-            position: absolute; /* 関連動画エリアを絶対配置 */
-            top: 380px; /* 動画エリアの下に配置 */
-            right: 10px; /* 右端に配置 */
+            margin-left: 10px; /* 動画エリアとの間隔 */
         }
 
         .recommended-videos a {
@@ -99,6 +98,7 @@
             height: 100px; /* サムネイルの高さ */ /* サムネイルを大きくする */
             border-radius: 5px; /* サムネイルの角を丸める */
             margin-right: 10px; /* サムネイルとタイトルの間の余白 */
+            display: inline-block; /* サムネイルを横に並べる */
         }
 
         .recommended-videos .thumbnail img {
@@ -118,15 +118,15 @@
         }
 
         .video-details {
-            margin-top: 20px;
+            margin-top: 10px;
             display: flex; /* 動画詳細エリアを水平方向に並べる */
             justify-content: space-between; /* 左右に要素を均等に配置 */
             align-items: flex-start; /* 垂直方向に要素を揃える */
         }
 
         .video-info {
-            width: 40%; /* 動画詳細エリアの幅を調整 */
-            margin-bottom: 20px; /* コメントエリアとの間隔 */
+            width: 30%; /* 動画詳細エリアの幅を調整 */
+            margin-bottom: 10px; /* コメントエリアとの間隔 */
         }
 
         .channel-profile {
@@ -163,7 +163,7 @@
 
         #comments {
             width: 55%; /* コメントエリアの幅を調整 */
-            margin-top: 20px; /* 動画の下に表示 */
+            margin-top: 10px; /* 動画の下に表示 */
         }
 
         #comments .pure-g {
@@ -205,11 +205,11 @@
 
         /* 概要欄 */
         .video-description {
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
 
         .video-description h2 {
-            font-size: 1.2em;
+            font-size: 0.8em;
             font-weight: bold;
             margin-bottom: 10px;
         }
@@ -257,7 +257,7 @@
     <div class="container">
         <div class="navbar-search">
             <a href="/">
-                <img src="https://raw.githubusercontent.com/renrenrenrenrenrenrenrenrenren0209/eee/refs/heads/main/IMG_2141.jpeg" alt="サイトロゴ">
+                <img src="https://raw.githubusercontent.com/renrenrenrenrenrenrenrenrenren0209/eee/refs/heads/main/IMG_2141.jpeg">
             </a>
             <a href="/bbs" class="bbs-button">掲示板</a>
             <form action="/search" method="get">
