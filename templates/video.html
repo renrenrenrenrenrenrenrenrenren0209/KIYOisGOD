@@ -301,7 +301,7 @@
                     <div class="video-description">
                         <h2>{{ videotitle }}</h2>
                         <p>{{ description | safe }}</p>
-                        <p>投稿日時: {{ publishedAt }}</p>
+                        <p>再生回数:{{viewCountText}}</p>
                         <p>チャンネル: <a href="/channel/{{ authorid }}">{{ author }}</a></p>
                     </div>
                 </div>
@@ -403,6 +403,35 @@
                 }
             }, delay: 300
         });</script>
+    
+    <script>
+      function formatViews(views) {
+        const numberOfViews = Number(views);
+        let formattedViews;
+
+        if (numberOfViews >= 1e8) {
+          formattedViews = (numberOfViews / 1e8).toFixed(1) + "億";
+        } else if (numberOfViews >= 1e4) {
+          formattedViews = (numberOfViews / 1e4).toFixed(1) + "万";
+        } else {
+          formattedViews = numberOfViews + "";
+        }
+
+        return formattedViews;
+      }
+
+      const playerViewCountElement = document.querySelector(".view-count");
+      const playerCurrentViews =
+        playerViewCountElement.textContent.split(" ")[0];
+      playerViewCountElement.textContent = formatViews(playerCurrentViews);
+
+      document
+        .querySelectorAll(".video-info")
+        .forEach(function (viewCountElement) {
+          const currentViews = viewCountElement.textContent.split("回視聴")[0];
+          viewCountElement.textContent = formatViews(currentViews) + "回視聴";
+        });
+    </script>
 </body>
 
 </html>
