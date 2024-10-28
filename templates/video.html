@@ -2,7 +2,7 @@
 <html lang="ja">
   <head>
     <meta charset="UTF-8" />
-    <title>YouTube風サイト</title>
+    <title>Google</title>
     <link rel="stylesheet" href="/css/ionicons.min.css" />
     <link
       rel="stylesheet"
@@ -68,7 +68,7 @@
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       }
       .navbar-logo img {
-        width: 50px;
+        width: 110px;
         height: auto;
       }
       .navbar-search {
@@ -94,13 +94,13 @@
       }
       #player-container {
         flex: 3;
-        padding: 10px;
+        padding: 1px;
         width: 100%;
         text-align: left;
       }
       #player {
         max-height: 45%;
-        width: 100%;
+        width: 90%;
         height: auto;
         outline: none;
         border-radius: 10px;
@@ -160,18 +160,18 @@
 
       /* コメントセクションのスタイル */
       #comments {
-        margin-top: 20px;
-        padding: 10px;
+        margin-top: 18px;
+        padding: 8px;
         background-color: #f9f9f9;
         border-radius: 10px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       }
 
       .comment {
-        margin-bottom: 15px;
-        padding: 10px;
+        margin-bottom: 13px;
+        padding: 8px;
         background-color: #fff;
-        border-radius: 5px;
+        border-radius: 3px;
         box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
       }
       /* コメントのauthor */
@@ -181,7 +181,7 @@
       }
       /* コメント */
       .comment .comment-text {
-        margin-top: 5px;
+        margin-top: 3px;
         color: #555;
       }
       /* 日付 */
@@ -202,7 +202,7 @@
           width: 80%;
         }
         .thumbnail img {
-          width: 40%;
+          width: 100%;
         }
         .sidebar {
           margin-left: 0;
@@ -227,7 +227,7 @@
       <div class="navbar-logo">
         <a href="/">
           <img
-            src="https://raw.githubusercontent.com/renrenrenrenrenrenrenrenrenren0209/eee/refs/heads/main/IMG_2141.jpeg"
+            src="https://api12.iloveimg.com/v1/download/z4qlgw10dw631mjz6sfpjpbp133qd6z6c2xckmpl4vbjyAk0ncjc8tA40h61gj9fA03pb4zA50t59gsmkhhngz20225ftz0l6wzy76xct7r6gq9938mh7hjnrxf1dc4m59ychm7xys1lpnr6xqjtzhyxy9zz82xz4jcj9f2g6xpkAk8vkx1q"
             alt="YouTube Icon"
           />
         </a>
@@ -257,7 +257,7 @@
         >
         <p>
           投稿日: <span id="published-date"></span> ・再生回数:
-          <span class="view-count" id="view-count"></span> ・ 高評価数:
+          <span class="viewCount" id="viewCount"></span> ・ 高評価数:
           <span class="like-count" id="like-count"></span>
         </p>
 
@@ -426,7 +426,7 @@
       </div>
 
       <div class="sidebar">
-        <h3>関連動画</h3>
+        <h3>あなたにおすすめ</h3>
         {% for re in res %}
         <a href="/watch?v={{ re['id'] }}" class="thumbnail">
           <img
