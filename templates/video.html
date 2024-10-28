@@ -395,7 +395,7 @@
               const publishedDate = formatDate(videoData.publishedText); // 日付をフォーマット
               document.getElementById("published-date").innerText =
                 publishedDate;
-              document.getElementById("view-count").innerText = formatCount(
+              document.getElementById("viewCount").innerText = formatCount(
                 videoData.viewCount
               );
               document.getElementById("video-description").innerText =
@@ -442,7 +442,7 @@
         {% endfor %}
       </div>
     </div>
-
+     
     <script>
       function formatViews(views) {
         const numberOfViews = Number(views);
